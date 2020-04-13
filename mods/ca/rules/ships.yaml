@@ -21,7 +21,7 @@ SS:
 		Type: Light
 	Mobile:
 		TurnSpeed: 4
-		Speed: 71
+		Speed: 82
 	RevealsShroud:
 		Range: 8c0
 		RevealGeneratedShroud: False
@@ -82,7 +82,6 @@ MSUB:
 		BuildAtProductionType: Submarine
 		BuildPaletteOrder: 60
 		Prerequisites: ~spen, stek, ~techlevel.high
-		BuildDurationModifier: 50
 		Description: Submerged anti-ground siege unit\nwith anti-air capabilities.\nCan detect other submarines.\n  Strong vs Buildings, Ground units, Aircraft\n  Weak vs Naval units\n  Special Ability: Submerge
 	Valued:
 		Cost: 2000
@@ -96,7 +95,7 @@ MSUB:
 		Type: Light
 	Mobile:
 		TurnSpeed: 3
-		Speed: 42
+		Speed: 56
 	RevealsShroud:
 		Range: 8c0
 		RevealGeneratedShroud: False
@@ -173,7 +172,7 @@ DD:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 7
-		Speed: 85
+		Speed: 82
 	RevealsShroud:
 		Range: 6c0
 		RevealGeneratedShroud: False
@@ -222,7 +221,6 @@ CA:
 		BuildAtProductionType: Boat
 		BuildPaletteOrder: 50
 		Prerequisites: ~syrd, atek, ~techlevel.high
-		BuildDurationModifier: 50
 		Description: Very slow long-range ship.\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft
 	Valued:
 		Cost: 2400
@@ -236,7 +234,7 @@ CA:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 3
-		Speed: 42
+		Speed: 56
 	RevealsShroud:
 		Range: 7c0
 		RevealGeneratedShroud: False
@@ -308,7 +306,10 @@ LST:
 	Mobile:
 		Locomotor: lcraft
 		Speed: 113
-		RequiresCondition: !notmobile && !emppowerdown
+		PauseOnCondition: !(!notmobile && !emppowerdown)
+	Hovers:
+		BobDistance: -35
+		RequiresCondition: !emppowerdown
 	RevealsShroud:
 		Range: 6c0
 		RevealGeneratedShroud: False
@@ -350,7 +351,7 @@ PT:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 7
-		Speed: 128
+		Speed: 113
 	RevealsShroud:
 		Range: 7c0
 		RevealGeneratedShroud: False
@@ -409,7 +410,7 @@ PT2:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 7
-		Speed: 90
+		Speed: 100
 	RevealsShroud:
 		Range: 7c0
 		RevealGeneratedShroud: False
@@ -476,7 +477,7 @@ DD2:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 5
-		Speed: 65
+		Speed: 82
 	RevealsShroud:
 		Range: 6c0
 		RevealGeneratedShroud: False
@@ -537,7 +538,7 @@ SS2:
 		Type: Light
 	Mobile:
 		TurnSpeed: 4
-		Speed: 71
+		Speed: 82
 	RevealsShroud:
 		Range: 6c0
 	Targetable:
@@ -609,7 +610,7 @@ ICBMSUB:
 		Type: Light
 	Mobile:
 		TurnSpeed: 3
-		Speed: 40
+		Speed: 56
 	RevealsShroud:
 		Range: 8c0
 		RevealGeneratedShroud: False

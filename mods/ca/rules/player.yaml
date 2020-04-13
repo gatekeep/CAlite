@@ -10,6 +10,7 @@ Player:
 	TechTree:
 	ClassicProductionQueue@Building:
 		Type: Building
+		DisplayOrder: 0
 		LowPowerModifier: 300
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
@@ -20,6 +21,7 @@ Player:
 		SpeedUp: False
 	ClassicProductionQueue@Defense:
 		Type: Defense
+		DisplayOrder: 1
 		LowPowerModifier: 300
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
@@ -30,6 +32,7 @@ Player:
 		SpeedUp: False
 	ClassicProductionQueue@Vehicle:
 		Type: Vehicle
+		DisplayOrder: 3
 		LowPowerModifier: 300
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
@@ -41,6 +44,7 @@ Player:
 		BuildTimeSpeedReduction: 100, 90, 80
 	ClassicProductionQueue@Infantry:
 		Type: Infantry
+		DisplayOrder: 2
 		LowPowerModifier: 300
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
@@ -52,6 +56,7 @@ Player:
 		BuildTimeSpeedReduction: 100, 90, 80
 	ClassicProductionQueue@Ship:
 		Type: Ship
+		DisplayOrder: 5
 		LowPowerModifier: 300
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
@@ -63,6 +68,7 @@ Player:
 		BuildTimeSpeedReduction: 100, 90, 80
 	ClassicProductionQueue@Aircraft:
 		Type: Aircraft
+		DisplayOrder: 4
 		LowPowerModifier: 300
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
@@ -125,19 +131,12 @@ Player:
 		Enabled: True
 		DisplayOrder: 13
 		Prerequisites: techlevel.superw
-	LobbyPrerequisiteCheckbox@Funits:
-		ID: funits
-		Label: Faction Units
-		Description: Enable or Disable Faction Special Units
-		Enabled: True
-		DisplayOrder: 14
-		Prerequisites: techlevel.funits
 	LobbyPrerequisiteCheckbox@REVEALONFIRE:
 		ID: revealonfire
 		Label: Reveal on Fire
 		Description: Units reveal themselves when firing.
 		Enabled: True
-		DisplayOrder: 15
+		DisplayOrder: 14
 		Prerequisites: global.revealonfire
 	FrozenActorLayer:
 	BaseAttackNotifier:
@@ -167,3 +166,4 @@ Player:
 	ResourceStorageWarning:
 	PlayerExperience:
 	ConditionManager:
+	GameSaveViewportManager:

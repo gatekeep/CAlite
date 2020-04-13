@@ -44,6 +44,9 @@ explosion:
 	artillery_explosion: art-exp1
 	building: fball1
 		Offset: 0,-9
+	building2: fball1
+		Offset: 0,-9
+		FlipX: true
 	small_splash: h2o_exp3
 	large_explosion: frag1
 		Offset: -2,0
@@ -60,18 +63,24 @@ explosion:
 			INTERIOR: TEMPERAT
 	pulse_explosion: pulsefx1
 		BlendMode: Additive
-		Tick: 80
+		Tick: 40
 	pulse_explosion_small: pulsefx1_small
 		BlendMode: Additive
-		Tick: 80
+		Tick: 40
 	pulse_explosion2: pulsefx2
 		BlendMode: Additive
-		Tick: 80
+		Tick: 40
 	ion_ring: ring1
 		BlendMode: Alpha
-		Tick: 80
+		Tick: 40
+		ZOffset: 2046
+	ion_ring2: ring2
+		BlendMode: Alpha
+		Tick: 50
+		ZOffset: 2046
 	small_chem: chemball
 	med_chem: chemball2
+	large_chem: chemball3
 	frag_1: frag1cnc
 	frag_3: frag3cnc
 	scud_explosion: fball1cnc
@@ -111,10 +120,17 @@ explosion:
 	chem_miss: twlt070
 		Tick: 70
 		ZOffset: 2046
-	chemexplode: demtexp
+	ionexp: ionexp
+		Tick: 110
+	b2bexp: b2bexp
 		BlendMode: Additive
-		Tick: 70
-		ZOffset: 512
+		Tick: 90
+		ZOffset: 2046
+	b2bexp2: b2bexp
+		BlendMode: Additive
+		Tick: 90
+		ZOffset: 2046
+		FlipX: true
 
 burn-l:
 	idle:
@@ -313,6 +329,11 @@ torpedo:
 	idle: missile
 		Facings: 32
 		ZOffset: -1023
+		
+scrintorp:
+	idle:
+		Length: *
+		ZOffset: 1023
 
 litning:
 	bright:
@@ -505,6 +526,11 @@ bomblet:
 	idle:
 		Length: *
 		ZOffset: 1023
+		
+empbomblet:
+	idle:
+		Length: *
+		ZOffset: 1023
 
 parabomb:
 	open:
@@ -523,6 +549,11 @@ tbomb:
 		Start: 8
 		Length: 5
 		ZOffset: 1023
+		
+b2bomb:
+	idle:
+		Length: *
+		ZOffset: 1023
 
 smokland:
 	open: playersmoke
@@ -536,26 +567,21 @@ smokland:
 		ZOffset: 1023
 
 fire:
+	Defaults:
+		Length: *
+		Offset: 0,-3
+		Tick: 105	
+		ZOffset: 511
 	1: fire1
-		Length: *
-		Offset: 0,-3
-		ZOffset: 1023
 	2: fire2
-		Length: *
-		Offset: 0,-3
-		ZOffset: 1023
-	3: fire3
-		Length: *
-		Offset: 0,-3
-		ZOffset: 1023
+	3: fire7
 	4: fire4
-		Length: *
-		Offset: 0,-3
-		ZOffset: 1023
 	5: fire5
-		Length: *
-		Offset: 0,-3
-		ZOffset: 1021
+	6: fire6
+	7: fire6
+		FlipX: true
+	8: fire7
+		FlipX: true
 		
 rank:
 	rank-veteran-1:
@@ -576,7 +602,7 @@ atomic:
 		Length: *
 		ZOffset: 1023
 		
-chemicbm:
+empicbm:
 	up: atomicupcnc
 		Length: *
 		ZOffset: 511
@@ -588,7 +614,7 @@ ionsfx:
 	idle:
 		Length: *
 		Offset: 0, -78
-		ZOffset: 1023
+		ZOffset: 2048
 
 bubbles:
 	idle:
@@ -651,13 +677,16 @@ icon:
 	ioncannon: ionicon
 	airstrike: airstkicon
 	a10airstrike: bombicnh
-	cmissile: cmissileicon
+	empmissile: empicon
 	hacksat: hacksaticon
 	uavicon: uavicon
 	airdropicon: airdropicon
 	forceshieldicon: forceshieldicon
 	orcaca: orcacarein
+	orcacah: orcacahrein
 	invis: invisicon
+	infbomb: b2bicnh
+	carpetbomb: cbombicon
 
 quee:
 	idle:
@@ -683,34 +712,23 @@ minv:
 	icon: jmin
 
 overlay:
-	build-valid-desert:
-	build-valid-interior:
-	build-valid-snow:
-		Start: 2
-	build-valid-temperat:
-	build-valid-winter:
-	build-valid-jungle:
-	build-valid-barren:
+	Defaults: trans.icn
+		AddExtension: False
+	build-valid:
 	build-invalid:
-		Start: 1
+		Start: 2
+	target-valid:
 	target-select:
-		Start: 2
-	target-valid-desert:
-	target-valid-interior:
-	target-valid-snow:
-		Start: 2
-	target-valid-temperat:
-	target-valid-winter:
-	target-valid-jungle:
-	target-valid-barren:
-	target-invalid:
 		Start: 1
+	target-invalid:
+		Start: 2
 
 editor-overlay:
-	copy: overlay
-		Start: 0
-	paste: overlay
-		Start: 1
+	Defaults: trans.icn
+		AddExtension: False
+	copy:
+	paste:
+		Start: 2
 
 resources:
 	Defaults:
@@ -896,11 +914,11 @@ craters:
 mine:
 	idle:
 		UseTilesetExtension: true
-		ZOffset: -512
+		ZOffset: -1024
 
 gmine:
 	idle:
-		ZOffset: -512
+		ZOffset: -1024
 		UseTilesetExtension: true
 		TilesetOverrides:
 			INTERIOR: TEMPERAT
@@ -932,34 +950,16 @@ laserfire:
 	idle: veh-hit3
 		Length: *
 		ZOffset: 511
+		
+plaserfire:
+	idle: frag1
+		Offset: -2,0
+		Length: *
+		ZOffset: 511
 
 atkssmmis:
 	idle:
 		Facings: 32
-
-smokeyn:
-	idle:
-		Length: *
-		ZOffset: 1023
-		BlendMode: Alpha
-
-smokeyn2:
-	idle:
-		Length: *
-		ZOffset: 1023
-		BlendMode: Alpha
-
-smokeyn3:
-	idle:
-		Length: *
-		ZOffset: 1023
-		BlendMode: Alpha
-		
-smokey2ts:
-	idle:
-		BlendMode: Alpha
-		Length: *
-		ZOffset: 1023
 
 fire1:
 	idle:
@@ -1022,6 +1022,13 @@ cb2:
 	idle:
 		Length: *
 		ZOffset: 1023
+		
+sparks_overlay:
+	idle: emp_fx01
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		ZOffset: 512
 
 ctnkjump:
 	idle:
@@ -1089,3 +1096,63 @@ mindanim:
 		Tick: 200
 		BlendMode: Alpha
 		Offset: 0, 0
+		
+paratarget:
+	cursor: mouse
+		Start: 82
+		Length: 8
+		Tick: 80
+
+paradirection:
+	arrow-t: mouse
+		Start: 1
+		Y: -7
+		Offset: 0, -19, 0
+	arrow-tr: mouse
+		Start: 2
+		X: 6
+		Y: -5
+		Offset: 15, -15, 0
+	arrow-r: mouse
+		Start: 3
+		X: 7
+		Offset: 19, 0, 0
+	arrow-br: mouse
+		Start: 4
+		X: 6
+		Y: 5
+		Offset: 15, 15, 0
+	arrow-b: mouse
+		Start: 5
+		Y: 7
+		Offset: 0, 19, 0
+	arrow-bl: mouse
+		Start: 6
+		X: -6
+		Y: 5
+		Offset: -15, 15, 0
+	arrow-l: mouse
+		Start: 7
+		X: -8
+		Offset: -19, 0, 0
+	arrow-tl: mouse
+		Start: 8
+		X: -6
+		y: 5
+		Offset: -15, -15, 0
+
+flameall:
+	idle:
+		Length: 19
+		Facings: -8
+		Tick: 140
+		ZOffset: 1023
+		Offset: 0, 0, 6
+		
+chemall:
+	idle:
+		Length: 19
+		Facings: -8
+		Tick: 140
+		ZOffset: 1023
+		Offset: 0, 0, 6

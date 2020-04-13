@@ -41,38 +41,17 @@ truk:
 	icon: trukicon
 
 harv:
-	idle: harvempty
+	idle:
 		Facings: 32
 		UseClassicFacingFudge: True
-	harvest: harvempty
+	harvest:
 		Start: 32
 		Length: 8
 		Facings: 8
-	empty-idle: harvempty
-		Facings: 32
-		UseClassicFacingFudge: True
-	empty-harvest: harvempty
-		Start: 32
-		Length: 8
-		Facings: 8
-	half-idle: harvhalf
-		Facings: 32
-		UseClassicFacingFudge: True
-	half-harvest: harvhalf
-		Start: 32
-		Length: 8
-		Facings: 8
-	full-idle:
-		Facings: 32
-		UseClassicFacingFudge: True
-	full-harvest:
-		Start: 32
-		Length: 8
-		Facings: 8
-	dock:
+	dock: harv
 		Start: 96
 		Length: 8
-	dock-loop:
+	dock-loop: harv
 		Start: 104
 		Length: 7
 	emp-overlay: emp_fx01
@@ -89,6 +68,12 @@ harv:
 		ZOffset: 512
 	icon: harvicon
 		Start: 0
+		
+harvempty:
+	Inherits: harv
+
+harvhalf:
+	Inherits: harv
 
 hhusk:
 	idle:
@@ -1144,28 +1129,8 @@ btr:
 	idle:
 		Facings: 32
 		UseClassicFacingFudge: True
-	muzzle: minigun
-		Length: 6
-		Facings: 8
-	muzzle2: gunfire2
-		Length: 2
-	spinner: mrj
-		Start: 32
-		Length: 32
-	turret: brdm
-		Start: 32
-		Facings: 32
-		UseClassicFacingFudge: True
-	turret2: 1tnk
-		Start: 32
-		Facings: 32
-		UseClassicFacingFudge: True
-	turret3: stnk
+	turret: stnk
 		Start: 38
-		Facings: 32
-		UseClassicFacingFudge: True
-	turret4: bttnk
-		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
 	open:
@@ -1192,57 +1157,49 @@ btr.destroyed:
 		Facings: 32
 		UseClassicFacingFudge: True
 		ZOffset: -512
+	turret: samtur
+		Facings: 32
+		UseClassicFacingFudge: True
+		
+ifv:
+	idle:
+		Facings: 32
+		UseClassicFacingFudge: True
+	muzzle: minigun
+		Length: 6
+		Facings: 8
+	muzzle2: gunfire2
+		Length: 2
+	spinner: mrj
+		Start: 32
+		Length: 32
+	medic: mouse
+		Start: 194
+		Length: 1
 	turret: brdm
 		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
-
-maa:
-	idle: mgg
-		Facings: 32
-		UseClassicFacingFudge: True
-	turret: ftrk
+	turret2: 1tnk
 		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
-	muzzle: smokeygun
-		Length: 12
-		Tick: 30
-	emp-overlay: emp_fx01
-		Length: *
-		BlendMode: Additive
-		Offset: 0, 0
-		UseTilesetCode: false
-		ZOffset: 512
-	chrono-overlay: chronofade
-		Length: *
-		BlendMode: Additive
-		Offset: 0, 0
-		UseTilesetCode: false
-		ZOffset: 512
-	icon: magunicon
-
-maa.destroyed:
-	idle: mgg
+	turret3: stnk
+		Start: 38
 		Facings: 32
 		UseClassicFacingFudge: True
-		ZOffset: -512
-	turret: ftrk
+	turret4: bttnk
 		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
-
-msamtruck:
-	idle: mgg
+	turret5: reptur
 		Facings: 32
 		UseClassicFacingFudge: True
-	turret: samtur
-		Facings: 32
-		UseClassicFacingFudge: True
-	muzzle: samfire
-		Length: 18
-		Facings: 8
-		Offset: -2,-2
+	open:
+		Start: 32
+		Length: 3
+	unload:
+		Start: 32
 	emp-overlay: emp_fx01
 		Length: *
 		BlendMode: Additive
@@ -1255,47 +1212,29 @@ msamtruck:
 		Offset: 0, 0
 		UseTilesetCode: false
 		ZOffset: 512
-	icon: msamtruckicon
+	icon: ifvicon
 
-msamtruck.destroyed:
-	idle: mgg
+ifv.destroyed:
+	idle: ifv
 		Facings: 32
 		UseClassicFacingFudge: True
 		ZOffset: -512
-	turret: samtur
+	turret: 1tnk
+		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
-
-gcan:
-	idle:
-		Facings: 32
-		UseClassicFacingFudge: True
-	emp-overlay: emp_fx01
-		Length: *
-		BlendMode: Additive
-		Offset: 0, 0
-		UseTilesetCode: false
-		ZOffset: 512
-	chrono-overlay: chronofade
-		Length: *
-		BlendMode: Additive
-		Offset: 0, 0
-		UseTilesetCode: false
-		ZOffset: 512
-	icon: gcanicon
-
+	
 titan:
-	stand:
+	stand: titanlegs
 		Facings: 16
-	run:
+	run: titanlegs
 		Start: 16
 		Facings: 16
 		Length: 14
-		Tick: 100
-	shoot:
-		Length: 1
-		Facings: 16
-		Tick: 100
+		Tick: 90
+	turret: titanturr
+		Facings: 32
+		UseClassicFacingFudge: True
 	muzzle: smokeygun
 		Length: 12
 		Tick: 30
@@ -1312,12 +1251,6 @@ titan:
 		UseTilesetCode: false
 		ZOffset: 512
 	icon: titanicnh
-
-titan.destroyed:
-	idle: titan
-		Start: 96
-		Facings: -8
-		ZOffset: -512
 
 ttrk:
 	idle:
@@ -1338,7 +1271,7 @@ ttrk:
 	icon: ttrkicon
 
 disr:
-	idle: sonich
+	idle:
 		Facings: 32
 		UseClassicFacingFudge: True
 	turret: sonict
@@ -1359,7 +1292,7 @@ disr:
 	icon: disricon
 	
 disr.destroyed:
-	idle: sonich
+	idle:
 		Facings: 32
 		UseClassicFacingFudge: True
 		ZOffset: -512
@@ -1389,11 +1322,11 @@ hmlrs:
 		ZOffset: 512
 	icon: hmlrsicnh
 		
-tankd:
-	idle: tankd
+tnkd:
+	idle:
 		Facings: 32
 		UseClassicFacingFudge: True
-	turret: tankd
+	turret:
 		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
@@ -1411,13 +1344,13 @@ tankd:
 		Offset: 0, 0
 		UseTilesetCode: false
 		ZOffset: 512
-	icon: tankdicon
+	icon: tnkdicon
 	
-tankd.destroyed:
-	idle: tankd
+tnkd.destroyed:
+	idle: tnkd
 		Facings: 32
 		UseClassicFacingFudge: True
-	turret: tankd
+	turret: tnkd
 		Start: 32
 		Facings: 32
 		UseClassicFacingFudge: True
@@ -1504,3 +1437,96 @@ rtnk.destroyed:
 		UseClassicFacingFudge: True
 		ZOffset: -512
 	
+msar:
+	idle:
+		Facings: 32
+		UseClassicFacingFudge: True
+	spinner: msarspinner
+		Length: 32
+	make: msarmake
+		Length: *
+		Tick: 50
+	idle-static: msardeployed
+		Length: 14
+		Tick: 80
+	emp-overlay: emp_fx01
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	chrono-overlay: chronofade
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	icon: msaricnh
+	
+ptnk:
+	idle:
+		Facings: 32
+		UseClassicFacingFudge: True
+	turret: ptnkt
+		Facings: 32
+		UseClassicFacingFudge: True
+	emp-overlay: emp_fx01
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	chrono-overlay: chronofade
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	icon: ptnkicon
+
+ptnk.destroyed:
+	idle: ptnk
+		Facings: 32
+		UseClassicFacingFudge: True
+		ZOffset: -512
+	turret: ptnkt
+		Facings: 32
+		UseClassicFacingFudge: True
+		ZOffset: -512
+		
+mwtnk:
+	idle: mwtnk
+		Facings: 32
+		UseClassicFacingFudge: True
+	turret: mwtnkt
+		Facings: 32
+		UseClassicFacingFudge: True
+	muzzle: emp_fx02
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	emp-overlay: emp_fx01
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	chrono-overlay: chronofade
+		Length: *
+		BlendMode: Additive
+		Offset: 0, 0
+		UseTilesetCode: false
+		ZOffset: 512
+	icon: mwtnkicnh
+
+mwtnk.destroyed:
+	idle: mwtnk
+		Facings: 32
+		UseClassicFacingFudge: True
+		ZOffset: -512
+	turret: mwtnkt
+		Facings: 32
+		UseClassicFacingFudge: True
+		ZOffset: -512

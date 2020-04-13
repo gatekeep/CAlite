@@ -3,6 +3,7 @@
 	AlwaysVisible:
 	ActorMap:
 	ScreenMap:
+	Selection:
 	MusicPlaylist:
 		VictoryMusic: nod_win1
 		DefeatMusic: stopthem
@@ -13,9 +14,9 @@
 		Crushes: mine, crate
 		SharesCell: true
 		TerrainSpeeds:
-			Clear: 90
-			Rough: 80
-			Road: 100
+			Clear: 100
+			Rough: 90
+			Road: 110
 			Bridge: 100
 			Ore: 80
 			Gems: 80
@@ -29,9 +30,9 @@
 		Crushes: mine, crate
 		SharesCell: true
 		TerrainSpeeds:
-			Clear: 90
-			Rough: 80
-			Road: 100
+			Clear: 100
+			Rough: 90
+			Road: 110
 			Bridge: 100
 			Ore: 80
 			Gems: 80
@@ -43,7 +44,7 @@
 		Crushes: mine, crate
 		TerrainSpeeds:
 			Clear: 80
-			Rough: 40
+			Rough: 60
 			Road: 100
 			Bridge: 100
 			Ore: 70
@@ -55,14 +56,14 @@
 		Name: heavywheeled
 		Crushes: wall, mine, crate, infantry
 		TerrainSpeeds:
-			Clear: 80
-			Rough: 40
-			Road: 100
+			Clear: 90
+			Rough: 80
+			Road: 110
 			Bridge: 100
-			Ore: 70
-			Gems: 70
-			Tiberium: 70
-			BlueTiberium: 70
+			Ore: 80
+			Gems: 80
+			Tiberium: 80
+			BlueTiberium: 80
 			Beach: 40
 	Locomotor@LIGHTTRACKED:
 		Name: lighttracked
@@ -141,7 +142,7 @@
 			Tiberium: 70
 			BlueTiberium: 70
 			Beach: 70
-			Water: 25		
+			Water: 15
 	Locomotor@CLOUD:
 		Name: cloud
 		Crushes: crate
@@ -177,7 +178,7 @@
 		Name: England
 		InternalName: england
 		Side: Allies
-		Description: England: \nSpecial Unit: Harrier
+		Description: England: \nSpecial Unit: Mirage Tank\nSpecial Unit: Sniper
 	Faction@2:
 		Name: France
 		InternalName: france
@@ -187,7 +188,7 @@
 		Name: Germany
 		InternalName: germany
 		Side: Allies
-		Description: Germany: \nSpecial Unit: Tank Destroyer
+		Description: Germany: \n Special Unit: Tank Destroyer\n Special Unit: IFV
 	Faction@4:
 		Name: Soviet
 		InternalName: soviet
@@ -197,42 +198,57 @@
 		Name: Russia
 		InternalName: russia
 		Side: Soviet
-		Description: Russia: \nSpecial Unit: V3 Rocket launcher
+		Description: Russia: \n Special Unit: Kirov Airship\n Special Unit: Tesla Tank
 	Faction@6:
 		Name: Ukraine
 		InternalName: ukraine
 		Side: Soviet
-		Description: Ukraine: \nSpecial Unit: Frogfoot
+		Description: Ukraine: \n Special Unit: Frogfoot\n Special Unit: MAD tank
 	Faction@7:
+		Name: Iraq
+		InternalName: iraq
+		Side: Soviet
+		Description: Iraq: \n Special Unit: Scud launcher\n Special Structure: Toxin Turret
+	Faction@8:
 		Name: GDI
 		InternalName: gdi
 		Side: GDI
 		Selectable: False
-	Faction@8:
+	Faction@9:
 		Name: Talon
 		InternalName: talon
 		Side: GDI
-		Description: Steel Talons:\n Special Unit: Hover MLRS
-	Faction@9:
+		Description: Steel Talons:\n Special Unit: Titan\n Special Unit: HMLRS
+	Faction@10:
 		Name: ZOCOM
 		InternalName: zocom
 		Side: GDI
 		Description: ZOCOM:\n Special Unit: Disruptor
-	Faction@10:
+	Faction@11:
+		Name: Eagle
+		InternalName: eagle
+		Side: GDI
+		Description: Eagle Corps:\n Special Unit: Orca Bomber\n Special Ability: Heavy Reinforcements
+	Faction@12:
 		Name: Nod
 		InternalName: nod
 		Side: Nod
 		Selectable: False
-	Faction@11:
-		Name: Black Hand
+	Faction@13:
+		Name: Black H.
 		InternalName: blackh
 		Side: Nod
-		Description: Black Hand:\n Special Unit: Howitzer
-	Faction@12:
+		Description: Black Hand:\n Special Unit: Comanche\n Special Unit: Howitzer\n Special Ability: Inferno Bomb
+	Faction@14:
 		Name: Marked
 		InternalName: marked
 		Side: Nod
-		Description: Marked of Kane:\n Special Unit: Toxin Truck
+		Description: Marked of Kane:\n Special Unit: Acolyte\n Special Unit: Chemical Warrior\n Special Ability: Elite Paradrop
+	Faction@15:
+		Name: Legion
+		InternalName: legion
+		Side: Nod
+		Description: Legion:\n Special Unit: Microwave Tank\n Special Ability: Stolen Technology\n Special Ability: Paradrop
 	Faction@random:
 		Name: Any
 		InternalName: Random
@@ -248,19 +264,19 @@
 	Faction@randomsoviet:
 		Name: Soviet
 		InternalName: RandomSoviet
-		RandomFactionMembers: russia, ukraine
+		RandomFactionMembers: russia, ukraine, iraq
 		Side: Random
 		Description: Random Soviet Faction\nA random Soviet faction will be chosen when the game starts.
 	Faction@randomgdi:
 		Name: GDI
 		InternalName: RandomGDI
-		RandomFactionMembers: talon, zocom
+		RandomFactionMembers: talon, zocom, eagle
 		Side: Random
 		Description: Random GDI Faction\nA random GDI faction will be chosen when the game starts.
 	Faction@randomnod:
 		Name: Nod
 		InternalName: RandomNOD
-		RandomFactionMembers: blackh, marked
+		RandomFactionMembers: blackh, marked, legion
 		Side: Random
 		Description: Random Nod Faction\nA random Nod faction will be chosen when the game starts.
 	ResourceType@ore:
@@ -358,7 +374,7 @@ World:
 	MPStartUnits@mcvonly:
 		Class: none
 		ClassName: MCV Only
-		Factions: allies, england, france, germany, soviet, russia, ukraine
+		Factions: allies, england, france, germany, soviet, russia, ukraine, iraq
 		BaseActor: mcv
 	MPStartUnits@lightallies:
 		Class: light
@@ -371,7 +387,7 @@ World:
 	MPStartUnits@lightsoviet:
 		Class: light
 		ClassName: Light Support
-		Factions: soviet, russia, ukraine
+		Factions: soviet, russia, ukraine, iraq
 		BaseActor: mcv
 		SupportActors: e1,e1,e1,e3,e3
 		InnerSupportRadius: 3
@@ -387,7 +403,7 @@ World:
 	MPStartUnits@heavysoviet:
 		Class: heavy
 		ClassName: Heavy Support
-		Factions: soviet, russia, ukraine
+		Factions: soviet, russia, ukraine, iraq
 		BaseActor: mcv
 		SupportActors: e1,e1,e1,e3,e3,3tnk,3tnk
 		InnerSupportRadius: 3
@@ -395,12 +411,12 @@ World:
 	MPStartUnits@mcvonly2:
 		Class: none
 		ClassName: MCV Only
-		Factions: gdi, talon, zocom, nod, blackh, marked
+		Factions: gdi, talon, zocom, eagle, nod, blackh, marked, legion
 		BaseActor: amcv
 	MPStartUnits@defaultgdia:
 		Class: light
 		ClassName: Light Support
-		Factions: gdi, talon, zocom
+		Factions: gdi, talon, zocom, eagle
 		BaseActor: amcv
 		SupportActors: n1,n1,n1,n3,n3
 		InnerSupportRadius: 3
@@ -408,7 +424,7 @@ World:
 	MPStartUnits@defaultnoda:
 		Class: light
 		ClassName: Light Support
-		Factions: nod, blackh, marked
+		Factions: nod, blackh, marked, legion
 		BaseActor: amcv
 		SupportActors: n1,n1,n1,n3,n3
 		InnerSupportRadius: 3
@@ -416,7 +432,7 @@ World:
 	MPStartUnits@heavynoda:
 		Class: heavy
 		ClassName: Heavy Support
-		Factions: nod, blackh, marked
+		Factions: nod, blackh, marked, legion
 		BaseActor: amcv
 		SupportActors: n1,n1,n1,n3,n3,mtnk.nod,mtnk.nod
 		InnerSupportRadius: 3
@@ -424,7 +440,7 @@ World:
 	MPStartUnits@heavygdia:
 		Class: heavy
 		ClassName: Heavy Support
-		Factions: gdi, talon, zocom
+		Factions: gdi, talon, zocom, eagle
 		BaseActor: amcv
 		SupportActors: n1,n1,n1,n3,n3,mtnk,mtnk
 		InnerSupportRadius: 3
@@ -441,6 +457,18 @@ World:
 	ObjectivesPanel:
 		PanelName: SKIRMISH_STATS
 	LoadWidgetAtGameStart:
+	ScriptTriggers:
+	TimeLimitManager:
+		TimeLimitWarnings:
+			40: FourtyMinutesRemaining
+			30: ThirtyMinutesRemaining
+			20: TwentyMinutesRemaining
+			10: TenMinutesRemaining
+			5: WarningFiveMinutesRemaining
+			4: WarningFourMinutesRemaining
+			3: WarningThreeMinutesRemaining
+			2: WarningTwoMinutesRemaining
+			1: WarningOneMinuteRemaining
 
 EditorWorld:
 	Inherits: ^BaseWorld

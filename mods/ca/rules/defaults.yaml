@@ -87,7 +87,8 @@
 		RequiresCondition: rank-elite
 		Modifier: 80
 	SelfHealing@ELITE:
-		Step: 200
+		Step: 0
+		PercentageStep: 5
 		Delay: 100
 		HealIfBelow: 100
 		DamageCooldown: 125
@@ -97,6 +98,7 @@
 		Sequence: rank-veteran-1
 		Palette: effect
 		ReferencePoint: Bottom, Right
+		ValidStances: Ally, Enemy, Neutral
 		RequiresCondition: rank-veteran == 1
 		ZOffset: 256
 	WithDecoration@RANK-2:
@@ -104,6 +106,7 @@
 		Sequence: rank-veteran-2
 		Palette: effect
 		ReferencePoint: Bottom, Right
+		ValidStances: Ally, Enemy, Neutral
 		RequiresCondition: rank-veteran == 2
 		ZOffset: 256
 	WithDecoration@RANK-ELITE:
@@ -111,6 +114,7 @@
 		Sequence: rank-elite
 		Palette: effect
 		ReferencePoint: Bottom, Right
+		ValidStances: Ally, Enemy, Neutral
 		RequiresCondition: rank-elite
 		ZOffset: 256
 
@@ -160,7 +164,7 @@
 		RequiresCondition: emppowerdown
 		Palette: disabled
 	TimedConditionBar@EMPDISABLE:
-		Condition: emppowerdown
+		Condition: empdisable
 		Color: FFFFFF
 	WithIdleOverlay@EMPDISABLE:
 		Sequence: emp-overlay
@@ -175,6 +179,20 @@
 		RequiresCondition: empdisable
 		Condition: emppowerdown
 		
+^GreenFlash:
+	ExternalCondition@GHIGH:
+		Condition: greenhighlight
+	WithColoredOverlay@GHIGH:
+		RequiresCondition: greenhighlight
+		Palette: greenhighlight
+		
+^WhiteFlash:
+	ExternalCondition@HIGH:
+		Condition: highlight
+	WithColoredOverlay@HIGH:
+		RequiresCondition: highlight
+		Palette: highlight
+		
 ^Cloakable:
 	Cloak@EXTERNALCLOAK:
 		RequiresCondition: invisibility || crate-cloak && !cloak-force-disabled
@@ -184,7 +202,7 @@
 		Palette: cloakgreen
 		CloakSound: cloak5.aud
 		UncloakSound: appear1.aud
-		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage, Heal
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Dock, Damage
 	TimedConditionBar@STEALTHGEN:
 		Condition: invisibility
 		Color: 33ff33
@@ -208,7 +226,7 @@
 		InvalidTargets: NoAutoTarget, WaterStructure
 	AutoTargetPriority@ATTACKANYTHING:
 		RequiresCondition: stance-attackanything
-		ValidTargets: Infantry, Vehicle, Water, Underwater, Structure, Defense
+		ValidTargets: Infantry, Vehicle, Water, Underwater, Structure, Defense, Mine
 		InvalidTargets: NoAutoTarget
 
 ^AutoTargetGroundAssaultMove:
@@ -218,7 +236,7 @@
 	AutoTargetPriority@ATTACKANYTHING:
 		RequiresCondition: stance-attackanything || assault-move
 	AttackMove:
-		AssaultMoveScanCondition: assault-move
+		AssaultMoveCondition: assault-move
 
 ^AutoTargetAir:
 	AutoTarget:
@@ -245,7 +263,7 @@
 	AutoTargetPriority@ATTACKANYTHING:
 		RequiresCondition: stance-attackanything || assault-move
 	AttackMove:
-		AssaultMoveScanCondition: assault-move
+		AssaultMoveCondition: assault-move
 
 ^GlobalBounty:
 	GrantConditionOnPrerequisite@GLOBALBOUNTY:
@@ -253,6 +271,14 @@
 		Prerequisites: global-bounty
 	GivesBounty:
 		RequiresCondition: global-bounty
+		
+^FlatSelectionMode:
+	Selectable:
+		PriorityModifiers: Ctrl
+
+^LowPrioritySelectionMode:
+	Selectable:
+		PriorityModifiers: Ctrl, Alt
 
 ^Vehicle:
 	Inherits@1: ^ExistsInWorld
@@ -260,14 +286,17 @@
 	Inherits@3: ^SpriteActor
 	Inherits@4: ^Cloakable
 	Inherits@5: ^EmpDisable
+	Inherits@gflash: ^GreenFlash
+	Inherits@wflash: ^WhiteFlash
 	Inherits@bounty: ^GlobalBounty
+	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
 	DrawLineToTarget:
 	UpdatesPlayerStatistics:
 	Mobile:
-		RequiresCondition: !being-captured && !emppowerdown
+		PauseOnCondition: being-captured || emppowerdown
 		Locomotor: wheeled
 		TurnSpeed: 5
 	SelectionDecorations:
@@ -284,7 +313,7 @@
 		Condition: damaged
 		ValidDamageStates: Light, Medium, Heavy, Critical
 	Repairable:
-		RepairBuildings: fix, rep
+		RepairActors: fix, rep
 	Chronoshiftable:
 	Passenger:
 		CargoType: Vehicle
@@ -342,6 +371,7 @@
 		Duration: 100
 		Radius: 2c512
 	Carryable:
+		LocalOffset: 0,0,200
 		
 ^VehicleTD:
 	Inherits@1: ^Vehicle
@@ -365,6 +395,7 @@
 	Inherits@3: ^InfantryExperienceHospitalOverrides
 	Inherits@4: ^SpriteActor
 	Inherits@bounty: ^GlobalBounty
+	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	RenderSprites:
 		PlayerPalette: playertd
 	Huntable:
@@ -379,7 +410,7 @@
 	RevealsShroud:
 		Range: 4c0
 	Mobile:
-		Speed: 56
+		Speed: 37
 		Locomotor: foot
 	DamagedByTerrain:
 		Terrain: Tiberium, BlueTiberium
@@ -457,6 +488,8 @@
 		HealIfBelow: 100
 		DamageCooldown: 125
 		RequiresCondition: hospitalheal
+	ExternalCondition@MEDIFV:
+		Condition: hospitalheal
 	GrantConditionOnPrerequisite@HOSPITAL:
 		Condition: hospital
 		Prerequisites: hosp
@@ -519,6 +552,9 @@
 		RequiresCondition: revealonfire
 	RevealOnDeath:
 		Duration: 100
+	DetectCloaked:
+		CloakTypes: Cloak
+		Range: 1c0
 
 ^Soldier:
 	Inherits: ^Infantry
@@ -534,8 +570,6 @@
 		DefaultAttackSequence: shoot
 		IdleSequences: idle1,idle2
 		StandSequences: stand,stand2
-	DetectCloaked:
-		CloakTypes: Thief
 
 ^CivInfantry:
 	Inherits: ^Infantry
@@ -576,7 +610,10 @@
 	Inherits@4: ^SpriteActor
 	Inherits@5: ^EmpDisable
 	Inherits@6: ^Cloakable
+	Inherits@gflash: ^GreenFlash
+	Inherits@wflash: ^WhiteFlash
 	Inherits@bounty: ^GlobalBounty
+	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -584,7 +621,7 @@
 	UpdatesPlayerStatistics:
 	Mobile:
 		Locomotor: naval
-		RequiresCondition: !emppowerdown
+		PauseOnCondition: emppowerdown
 	SelectionDecorations:
 	WithSpriteControlGroupDecoration:
 	Selectable:
@@ -605,7 +642,7 @@
 		Types: Ship
 	Chronoshiftable:
 	RepairableNear:
-		Buildings: syrd, spen, syrd.gdi, spen.nod
+		RepairActors: syrd, spen, syrd.gdi, spen.nod
 	GpsDot:
 		String: Ship
 	WithDamageOverlay:
@@ -639,6 +676,7 @@
 	Inherits@3: ^IronCurtainable
 	Inherits@4: ^SpriteActor
 	Inherits@bounty: ^GlobalBounty
+	Inherits@SELECTION_MODE: ^FlatSelectionMode
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -654,6 +692,7 @@
 		Bounds: 24,24
 	Aircraft:
 		AirborneCondition: airborne
+		TakeOffOnResupply: true
 	Targetable@GROUND:
 		RequiresCondition: !airborne
 		TargetTypes: Ground, Vehicle
@@ -715,6 +754,9 @@
 	Inherits: ^NeutralPlane
 	Inherits@2: ^GainsExperience
 	Inherits@3: ^Cloakable
+	Inherits@4: ^EmpDisable
+	Inherits@gflash: ^GreenFlash
+	Inherits@wflash: ^WhiteFlash
 	Cloak@EXTERNALCLOAK:
 		RequiresCondition: invisibility || crate-cloak && !cloak-force-disabled && !airborne
 		InitialDelay: 0
@@ -725,10 +767,14 @@
 		UncloakSound: appear1.aud
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage, Heal
 	Repairable:
-		RepairBuildings: fix, rep
+		RepairActors: fix, rep
+	KillsSelf:
+		RequiresCondition: empdisable && airborne
 		
 ^PlaneTD:
 	Inherits@1: ^Plane
+	RenderSprites:
+		PlayerPalette: playertd
 	EjectOnDeath:
 		PilotActor: N1
 		SuccessRate: 50
@@ -743,12 +789,12 @@
 	Aircraft:
 		CanHover: True
 		CruisingCondition: cruising
-		TakeoffSounds: htoff1.aud
-		LandingSounds: hland1.aud
 		WaitDistanceFromResupplyBase: 4c0
 		TakeOffOnResupply: true
 		VTOL: true
 		InitialFacing: 224
+		CanSlide: True
+		LandableTerrainTypes: Clear,Rough,Road,Ore,Beach,Gems,Tiberium,BlueTiberium
 	GpsDot:
 		String: Helicopter
 	Hovers@CRUISING:
@@ -758,6 +804,8 @@
 		
 ^HelicopterTD:
 	Inherits@1: ^Helicopter
+	RenderSprites:
+		PlayerPalette: playertd
 	EjectOnDeath:
 		PilotActor: N1
 		SuccessRate: 50
@@ -784,8 +832,11 @@
 		RequiresBaseProvider: True
 		BuildSounds: placbldg.aud, build5.aud
 		UndeploySounds: cashturn.aud
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placebuilding
 	RequiresBuildableArea:
 		AreaTypes: building
+		Adjacent: 4
 	SoundOnDamageTransition:
 		DamagedSounds: kaboom1.aud
 		DestroyedSounds: kaboom22.aud
@@ -873,6 +924,8 @@
 		Probability: 10
 	SpawnActorsOnSell:
 		ActorTypes: n1,n1,n1,tecn,tecn2
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placebuildingtd
 
 ^ScienceBuilding:
 	Inherits: ^Building
@@ -896,6 +949,8 @@
 	SpawnActorOnDeath@2:
 		Actor: tecn
 		Probability: 10
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placebuildingtd
 
 ^Defense:
 	Inherits: ^Building
@@ -914,6 +969,13 @@
 	-TimedConditionBar@FS:
 	-ExternalCondition@FS:
 	-PowerMultiplier@FSPOWERDOWN:
+	-CaptureManager:
+	-Capturable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished
+		SellSounds: cashturn.aud
 	DrawLineToTarget:
 	RenderRangeCircle:
 	Explodes:
@@ -934,12 +996,15 @@
 ^DefenseTD:
 	Inherits@1: ^Defense
 	RenderSprites:
-		PlayerPalette: playertd		
+		PlayerPalette: playertd
+	ActorPreviewPlaceBuildingPreview:
+		OverridePalette: placebuildingtd
 
 ^Wall:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
 	Inherits@shape: ^1x1Shape
+	Inherits@3: ^Cloakable
 	Interactable:
 		Bounds: 24,24
 	OwnerLostAction:
@@ -950,6 +1015,8 @@
 		BuildSounds: placbldg.aud
 		TerrainTypes: Clear,Road
 		UndeploySounds: cashturn.aud
+	FootprintPlaceBuildingPreview:
+		LineBuildSegmentPalette: placelinesegment
 	RequiresBuildableArea:
 		AreaTypes: building
 		Adjacent: 7
@@ -976,6 +1043,8 @@
 	FrozenUnderFogUpdatedByGps:
 	Health:
 		HP: 10000
+	AppearsOnMapPreview:
+		Terrain: Wall
 	MapEditorData:
 		Categories: Wall
 
@@ -1121,6 +1190,8 @@
 	AppearsOnRadar:
 	RadarColorFromTerrain:
 		Terrain: Tree
+	AppearsOnMapPreview:
+		Terrain: Tree
 	Health:
 		HP: 50000
 	Armor:
@@ -1157,6 +1228,8 @@
 		Palette: terrain
 	AppearsOnRadar:
 	RadarColorFromTerrain:
+		Terrain: Tree
+	AppearsOnMapPreview:
 		Terrain: Tree
 	Building:
 		Footprint: x
@@ -1258,6 +1331,7 @@
 	Aircraft:
 		CanHover: True
 		VTOL: true
+		CanSlide: True
 	FallsToEarth:
 		Explosion: UnitExplodeHeli
 	BodyOrientation:
@@ -1333,6 +1407,8 @@
 		Categories: Decoration
 	RequiresSpecificOwners:
 		ValidOwnerNames: Neutral
+	AppearsOnMapPreview:
+		Terrain: Tree
 
 ^DesertCivBuilding:
 	Inherits: ^CivBuilding
@@ -1352,7 +1428,7 @@
 		ShowOwnerRow: false
 	Crate:
 		Lifetime: 180
-		TerrainTypes: Clear, Rough, Road, Ore, Beach, Tiberium, BlueTiberium
+		TerrainTypes: Clear, Rough, Road, Ore, Beach, Tiberium, BlueTiberium, Water
 	RenderSprites:
 		Palette: effect
 		Image: scrate
@@ -1401,7 +1477,7 @@
 	Tooltip:
 		Name: Mine
 	Targetable:
-		TargetTypes: Ground, Defense
+		TargetTypes: Ground, Mine
 	Immobile:
 		OccupiesSpace: true
 	HitShape:
@@ -1543,7 +1619,7 @@
 		PlayerPalette: playertd
 	Huntable:
 	Health:
-		HP: 11000
+		HP: 13000
 	Armor:
 		Type: Light
 	RevealsShroud:
@@ -1583,7 +1659,7 @@
 		Voice: Move
 	Guardable:
 	DamagedByTerrain:
-		Damage: -3
+		Damage: -300
 		DamageInterval: 50
 		DamageTypes: ToxinDeath
 		Terrain: Tiberium, BlueTiberium
